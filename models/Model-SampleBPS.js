@@ -1,0 +1,26 @@
+const mongoose = require('mongoose');
+
+// Define the schema for the nested 'rincianKegiatan' subdocuments.
+const RincianKegiatanSchema = new mongoose.Schema({
+  id: Number,
+  uraian: String,
+  linkLaporanKegiatan: String,
+  output: String,
+  jumlah: Number,
+  quarter: String,
+  pic: String,
+  keterangan: String
+}, { _id: false });
+
+// Define the schema for the main 'SOP' collection.
+const RencanaAksiSchema = new mongoose.Schema({
+  id: Number,
+  linkLaporanAksi: String,
+  rencanaAksi: String,
+  rincianKegiatan: [RincianKegiatanSchema]
+}, { collection: 'SampleBPS' });
+
+// Create and export the SOP model based on the main schema.
+const SampleBPS = mongoose.model('SampleBPS', RencanaAksiSchema);
+
+module.exports = SampleBPS;
