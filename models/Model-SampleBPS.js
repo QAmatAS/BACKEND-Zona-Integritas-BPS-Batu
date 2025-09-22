@@ -9,7 +9,10 @@ const RincianKegiatanSchema = new mongoose.Schema({
   jumlah: Number,
   quarter: String,
   pic: String,
-  keterangan: String
+  keterangan: String,
+  // Menambahkan properti baru untuk realisasi
+  realisasiQuarter: String,
+  realisasiJumlah: Number
 }, { _id: false });
 
 // Define the schema for the main 'SOP' collection.

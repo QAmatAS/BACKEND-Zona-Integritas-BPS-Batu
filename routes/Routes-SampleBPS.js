@@ -34,6 +34,31 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Route untuk mendapatkan rincian kegiatan berdasarkan ID rencana aksi dan ID rincian kegiatan
+router.get('/rincian-by-id/:rencanaAksiId/:rincianKegiatanId', async (req, res) => {
+    const { rencanaAksiId, rincianKegiatanId } = req.params;
+
+    try {
+        const rencanaAksi = await sampleBPS.findOne(
+            { id: parseInt(rencanaAksiId) },
+            { 
+                rincianKegiatan: { 
+                    $elemMatch: { id: parseInt(rincianKegiatanId) } 
+                } 
+            }
+        );
+
+        if (!rencanaAksi || !rencanaAksi.rincianKegiatan || rencanaAksi.rincianKegiatan.length === 0) {
+            return res.status(404).json({ message: 'Rincian kegiatan tidak ditemukan.' });
+        }
+
+        res.status(200).json(rencanaAksi.rincianKegiatan[0]);
+    } catch (err) {
+        console.error('Error saat mengambil rincian kegiatan:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 // Route untuk menambahkan rencana aksi baru (dengan validasi duplikasi ID)
 router.post('/', async (req, res) => {
     const newRencanaAksi = req.body;
