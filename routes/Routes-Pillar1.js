@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const sampleBPS = require('../models/Model-SampleBPS');
+const sampleBPS = require('../models/Model-Pillar1');
 
 // Fungsi untuk mengurutkan dan memperbarui ID rincian kegiatan
 const reorderRincianKegiatan = async (doc) => {

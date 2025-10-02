@@ -21,9 +21,9 @@ const RencanaAksiSchema = new mongoose.Schema({
   linkLaporanAksi: String,
   rencanaAksi: String,
   rincianKegiatan: [RincianKegiatanSchema]
-}, { collection: 'SampleBPS' });
+}, { collection: 'PillarTiga' });
 
 // Create and export the SOP model based on the main schema.
-const SampleBPS = mongoose.model('SampleBPS', RencanaAksiSchema);
+const SampleBPS = mongoose.model('PillarTiga', RencanaAksiSchema);
 
 module.exports = SampleBPS;
