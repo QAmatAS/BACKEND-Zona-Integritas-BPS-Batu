@@ -14,13 +14,14 @@ const Pillar = require('./routes/Routes-DaftarPillar');
 
 const app = express();
 const port = 3000;
+const MONGODB_URI ="mongodb+srv://Vercel-Admin-BPS:Wl6exnLIQybYO22t@bps.5k7wafh.mongodb.net/?retryWrites=true&w=majority";
 
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/BPS', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log(err));
 
