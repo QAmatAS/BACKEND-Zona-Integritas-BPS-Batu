@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Pillar = require('../models/Model-DaftarPillar');
+const DaftarPillar = require('../models/Model-DaftarPillar');
 const mongoose = require('mongoose');
 
 // Get all Pillar
 router.get('/', async (req, res) => {
     try {
-        const pillar = await Pillar.find({});
+        const pillar = await DaftarPillar.find({});
 
         console.log('All Pillar in the collection:');
         res.status(200).json(pillar);
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const pillar = await Pillar.find({id: parseInt(id)});
+        const pillar = await DaftarPillar.find({id: parseInt(id)});
 
         console.log('All Pillar in the collection:');
         res.status(200).json(pillar);
@@ -44,13 +44,13 @@ router.post('/', async (req, res) => {
 
     try {
         // Cek apakah ID sudah ada di database
-        const existingPillar = await Pillar.findOne({ id: id });
+        const existingPillar = await DaftarPillar.findOne({ id: id });
         if (existingPillar) {
             return res.status(409).json({ message: `Gagal menambahkan data. Pillar dengan ID ${id} sudah ada.` });
         }
 
         const newPillar = { id, namaPillar, linkFolder };
-        const createdPillar = await Pillar.create(newPillar);
+        const createdPillar = await DaftarPillar.create(newPillar);
         console.log('Pillar baru berhasil ditambahkan.');
         res.status(201).json(createdPillar);
     } catch (err) {
@@ -64,7 +64,7 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const result = await Pillar.deleteOne({ id: parseInt(id) });
+        const result = await DaftarPillar.deleteOne({ id: parseInt(id) });
 
         if (result.deletedCount === 0) {
             return res.status(404).json({ message: 'Pillar tidak ditemukan.' });
@@ -84,7 +84,7 @@ router.patch('/:id', async (req, res) => {
     const updateData = req.body;
 
     try {
-        const updatedPillar = await Pillar.findOneAndUpdate(
+        const updatedPillar = await DaftarPillar.findOneAndUpdate(
             { id: parseInt(id) },
             { $set: updateData },
             { new: true, runValidators: true }

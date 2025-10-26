@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const sampleBPS = require('../models/Model-Pillar3');
+const PillarTiga = require('../models/Model-Pillar3');
 
 // Fungsi untuk mengurutkan dan memperbarui ID rincian kegiatan
 const reorderRincianKegiatan = async (doc) => {
@@ -25,7 +25,7 @@ const reorderRincianKegiatan = async (doc) => {
 // Route untuk mendapatkan semua rencana aksi
 router.get('/', async (req, res) => {
     try {
-        const samples = await sampleBPS.find({});
+        const samples = await PillarTiga.find({});
         console.log('Semua data rencana aksi berhasil diambil.');
         res.status(200).json(samples);
     } catch (err) {
@@ -39,7 +39,7 @@ router.get('/rincian-by-id/:rencanaAksiId/:rincianKegiatanId', async (req, res) 
     const { rencanaAksiId, rincianKegiatanId } = req.params;
 
     try {
-        const rencanaAksi = await sampleBPS.findOne(
+        const rencanaAksi = await PillarTiga.findOne(
             { id: parseInt(rencanaAksiId) },
             { 
                 rincianKegiatan: { 
@@ -69,12 +69,12 @@ router.post('/', async (req, res) => {
 
     try {
         // Cek apakah ID sudah ada di database
-        const existingRencanaAksi = await sampleBPS.findOne({ id: newRencanaAksi.id });
+        const existingRencanaAksi = await PillarTiga.findOne({ id: newRencanaAksi.id });
         if (existingRencanaAksi) {
             return res.status(409).json({ message: `Gagal menambahkan data. Rencana aksi dengan ID ${newRencanaAksi.id} sudah ada.` });
         }
 
-        const createdRencanaAksi = await sampleBPS.create(newRencanaAksi);
+        const createdRencanaAksi = await PillarTiga.create(newRencanaAksi);
         console.log('Rencana aksi baru berhasil ditambahkan.');
         res.status(201).json(createdRencanaAksi);
     } catch (err) {
@@ -93,7 +93,7 @@ router.post('/add-rincian/:id', async (req, res) => {
     }
 
     try {
-        const updatedRencanaAksi = await sampleBPS.findOneAndUpdate(
+        const updatedRencanaAksi = await PillarTiga.findOneAndUpdate(
             { id: parseInt(id) },
             { $push: { rincianKegiatan: newRincianKegiatan } },
             { new: true, runValidators: true }
@@ -120,7 +120,7 @@ router.patch('/update-rincian/:rencanaAksiId/:rincianKegiatanId', async (req, re
     const updateData = req.body;
 
     try {
-        const updatedRencanaAksi = await sampleBPS.findOneAndUpdate(
+        const updatedRencanaAksi = await PillarTiga.findOneAndUpdate(
             { 
                 id: parseInt(rencanaAksiId),
                 'rincianKegiatan.id': parseInt(rincianKegiatanId)
@@ -150,7 +150,7 @@ router.delete('/delete-rincian/:rencanaAksiId/:rincianKegiatanId', async (req, r
     const { rencanaAksiId, rincianKegiatanId } = req.params;
 
     try {
-        const updatedRencanaAksi = await sampleBPS.findOneAndUpdate(
+        const updatedRencanaAksi = await PillarTiga.findOneAndUpdate(
             { id: parseInt(rencanaAksiId) },
             { $pull: { rincianKegiatan: { id: parseInt(rincianKegiatanId) } } },
             { new: true }
@@ -177,7 +177,7 @@ router.patch('/:id', async (req, res) => {
     const updateData = req.body;
 
     try {
-        const updatedRencanaAksi = await sampleBPS.findOneAndUpdate(
+        const updatedRencanaAksi = await PillarTiga.findOneAndUpdate(
             { id: parseInt(id) },
             { $set: updateData },
             { new: true, runValidators: true }
@@ -200,7 +200,7 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const result = await sampleBPS.deleteOne({ id: parseInt(id) });
+        const result = await PillarTiga.deleteOne({ id: parseInt(id) });
 
         if (result.deletedCount === 0) {
             return res.status(404).json({ message: 'Rencana aksi tidak ditemukan.' });
