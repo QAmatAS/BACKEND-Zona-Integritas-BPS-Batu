@@ -33,7 +33,7 @@ app.use('/PillarDua', sampleRoutes2);
 app.use('/PillarTiga', sampleRoutes3);
 app.use('/PillarEmpat', sampleRoutes4);
 app.use('/PillarLima', sampleRoutes5);
-app.use('/PillarEnam', sampleRoutes5);
+app.use('/PillarEnam', sampleRoutes6);
 app.use('/DaftarPillar', Pillar);
 
 // Start the server
