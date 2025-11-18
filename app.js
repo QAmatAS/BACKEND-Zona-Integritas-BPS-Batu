@@ -10,6 +10,7 @@ const sampleRoutes2 = require('./routes/Routes-Pillar2');
 const sampleRoutes3 = require('./routes/Routes-Pillar3');
 const sampleRoutes4 = require('./routes/Routes-Pillar4');
 const sampleRoutes5 = require('./routes/Routes-Pillar5');
+const sampleRoutes6 = require('./routes/Routes-Pillar6');
 const Pillar = require('./routes/Routes-DaftarPillar');
 
 const app = express();
