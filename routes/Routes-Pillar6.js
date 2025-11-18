@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const PillarEnam = require('../models/Model-Pillar5');
+const PillarEnam = require('../models/Model-Pillar6');
 
 // Fungsi untuk mengurutkan dan memperbarui ID rincian kegiatan
 const reorderRincianKegiatan = async (doc) => {
